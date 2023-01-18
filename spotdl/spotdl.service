@@ -1,0 +1,13 @@
+[Unit]
+Description=Spotdl web service
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/spotdl web
+ExecReload=/usr/local/bin/spotdl web
+Type=notify
+Restart=always
+
+
+[Install]
+RequiredBy=network.target
