@@ -7,8 +7,8 @@ services:
       - CHECK_FREQUENCY=240
      # - PASSWORD=password     ## Uncomment to enable basic authentication, username = podgrab
     volumes:
-      - ./podgrab_config:/config
-      - /media/Podcasts/:/assets
+      - ./.config/podgrab_config:/config
+      - ./media/Podcasts/:/assets
     ports:
       - 1114:8080
     restart: unless-stopped
@@ -20,7 +20,7 @@ services:
       - "1111:4533"
     restart: unless-stopped
     volumes:
-      - "./navidrome_data/music_instance:/data"
+      - "./.config/navidrome_data/music_instance:/data"
       - "./media/Music/:/music:ro"
   navidrome_podcasts:
     image: deluan/navidrome:latest
@@ -29,5 +29,5 @@ services:
       - "1112:4533"
     restart: unless-stopped
     volumes:
-      - "./navidrome_data/podcast_instance:/data"
+      - "./.config/navidrome_data/podcast_instance:/data"
       - "./media/Podcasts/:/music:ro"
