@@ -1,11 +1,20 @@
 #!/bin/bash
 
 ##########################
+#System preparation
+##########################
+apt update && apt upgrade -y
+apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+apt-get update
+apt-get -y install docker-ce docker-ce-cli containerd.io
+##########################
 #Navidrome and Podgrab
 ##########################
 
 #deploy docker-compose.yml
-compose up -d
+docker compose up -d
 
 ##########################
 #Spotdl
@@ -16,12 +25,12 @@ apt intall python3-pip
 pip3 install spotdl
 spotdl --download-ffmpeg
 #link config file
-ln /root/.spotdl/config.json /root/navidrome_plus/spotdl/config.json
+ln /root/.spotdl/config.json .config/spotdl/config.json
 #add web downloads to media
 rm -r /root/.spotdl/web/sessions
-ln -s /root/navidrome_plus/media/Music/ /root/.spotdl/web/sessions
+ln -s ./media/Music/ /root/.spotdl/web/sessions
 #add spotdl to systemctl
-ln /root/navidrome_plus/spotdl/spotdl.service /etc/systemd/system/spotdl.service
+ln .config/spotdl/spotdl.service /etc/systemd/system/spotdl.service
 systemctl daemon-reload
 systemctl enable spotdl.service
 systemctl start spotdl.service
