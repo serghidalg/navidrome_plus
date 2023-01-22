@@ -36,6 +36,9 @@ systemctl daemon-reload
 systemctl enable spotdl.service
 systemctl start spotdl.service
 
+
+(crontab -l; echo "05 3 * * 1-7 bash /root/navidrome_plus/scripts/autosync.sh > /root/navidrome_plus/.logs";) | crontab -
+
 echo "#############################"
 echo "#Relevant info!"
 echo "#############################"
