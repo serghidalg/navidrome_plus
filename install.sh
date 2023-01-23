@@ -45,7 +45,7 @@ systemctl start spotdl.service
 (crontab -l; echo "00 3 * * 1-7 bash /root/navidrome_plus/scripts/tasks/move_tracks.sh";) | crontab -
 sleep 1
 #Sync playlists
-(crontab -l; echo "05 3 * * 1-7 bash /root/navidrome_plus/scripts/autosync.sh > /root/navidrome_plus/.logs_sync";) | crontab -
+(crontab -l; echo "05 3 * * 1-7 bash /root/navidrome_plus/scripts/autosync.sh;) | crontab -
 
 echo "#############################"
 echo "#Relevant info!"
