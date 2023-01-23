@@ -30,14 +30,21 @@ ln /root/.spotdl/config.json .config/spotdl/config.json
 #add web downloads to media
 rm -r /root/.spotdl/web/sessions
 ln -s ./media/Music/ /root/.spotdl/web/sessions
+
+#Needs a directory structure even if empty to detect playlists
+mkdir ./media/Music/track_me
+touch ./media/Music/track_me/.keep
 #add spotdl to systemctl
 ln .config/spotdl/spotdl.service /etc/systemd/system/spotdl.service
 systemctl daemon-reload
 systemctl enable spotdl.service
 systemctl start spotdl.service
 
+
+#Move tracks from web to main
 (crontab -l; echo "00 3 * * 1-7 bash /root/navidrome_plus/scripts/tasks/move_tracks.sh";) | crontab -
 sleep 1
+#Sync playlists
 (crontab -l; echo "05 3 * * 1-7 bash /root/navidrome_plus/scripts/autosync.sh > /root/navidrome_plus/.logs_sync";) | crontab -
 
 echo "#############################"
